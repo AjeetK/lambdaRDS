@@ -6,7 +6,6 @@ import sys
 
 REGION = 'us-east-1'
 
-
 rds_host  = "example.c7hugt6dv8dv.ap-south-1.rds.amazonaws.com"
 name = "example"
 password = "examplepassword"
@@ -19,11 +18,9 @@ def save_events(event):
     item_count = 0
     conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
     with conn.cursor() as cur:
-        print event["consumer_group"]
-        cur.execute("""insert into example (id, name) values( %s, '%s')""" % (event['id'], event['name']))
+        cur.execute("""insert into test (id, name) values( %s, '%s')""" % (event['id'], event['name']))
         conn.commit()
         cur.close()
-
 
 def main(event, context):
     save_events(event)
